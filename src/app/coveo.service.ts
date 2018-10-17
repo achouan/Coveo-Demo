@@ -30,7 +30,6 @@ export class CoveoService {
       return of(null);
     }
     return this.http.get<CoveoResponse>(`${this.coveoUrl}&q=${term}`).pipe(
-      tap(_ => this.log(`found results matching "${term}"`)),
       catchError(this.handleError<CoveoResponse>('searchResults', null))
     );
   }

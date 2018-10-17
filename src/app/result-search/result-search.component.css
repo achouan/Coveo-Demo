@@ -1,4 +1,17 @@
 /* ResultSearch private styles */
+.result{
+  margin-bottom: 30px;
+  padding: 30px;
+  background-color: azure;
+}
+.result:hover {
+  background-color: beige;
+}
+
+a {
+  text-decoration: none;
+}
+
 .search-result li {
   border-bottom: 1px solid gray;
   border-left: 1px solid gray;

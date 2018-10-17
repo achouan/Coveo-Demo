@@ -8,6 +8,7 @@ import {
 
 import {CoveoResponse, ResultsEntity} from '../coveo-response';
 import { CoveoService } from '../coveo.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-result-search',
@@ -18,12 +19,18 @@ export class ResultSearchComponent implements OnInit {
   results$: Observable<CoveoResponse>;
   private searchTerms = new Subject<string>();
 
-  constructor(private coveoService: CoveoService) {}
+  constructor(private coveoService: CoveoService, private messageService: MessageService) {}
   response: CoveoResponse;
+
   // Push a search term into the observable stream.
   search(term: string): void {
     this.coveoService.searchResults(term)
-      .subscribe(response => this.response = response);
+      .subscribe(response => this.getCoveoResponse(response));
+  }
+
+  private getCoveoResponse(response) {
+    this.messageService.add("About " + response.totalCountFiltered +" results (" + response.duration + " milliseconds) ");
+    return this.response = response;
   }
 
   ngOnInit(): void {
