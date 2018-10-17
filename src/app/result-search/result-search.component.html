@@ -1,0 +1,24 @@
+<div id="search-component">
+  <h4>Result Search</h4>
+
+  <input #searchBox id="search-box"  />
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="search(searchBox.value)">
+    Search
+  </button>
+  <ul class="results">
+    <li *ngFor="let result of (response ? response.results : [])">
+      <a href="{{result.Uri}}" target="_blank" >
+        <span class="badge">{{result.title}}</span>
+
+      </a>
+    </li>
+  </ul>
+</div>
+
+
+<!--
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->
