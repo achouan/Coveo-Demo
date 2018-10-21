@@ -1,0 +1,59 @@
+<div id="search-component">
+  <ngx-spinner type="pacman">
+  </ngx-spinner>
+  <div class="container-fluid ">
+
+    <div class="row top-buffer">
+      <div class="input-group col-xl-3">
+        <input type="text" #searchBox class="form-control" (keydown)="onKeyDown($event)" [(ngModel)]="term"
+               placeholder="Type your search here..." aria-label="Type your search here..."
+               aria-describedby="basic-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" (click)="clickSearch()">Search</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-toolbar top-buffer">
+      <button type="button" class="btn btn-info margin-buffer" (click)="clickPrevious()" [disabled]="page == 0">
+        Previous
+      </button>
+      <button type="button" class="btn btn-info margin-buffer" (click)="clickNext()"
+              [disabled]="(page + 1) * nbResult >= total">Next
+      </button>
+    </div>
+    <div class="row top-buffer col-xl-12">
+      Page: {{page + 1}} ({{nbResult}} results per page)
+    </div>
+    <app-messages></app-messages>
+    <div class="row top-buffer">
+      <div *ngFor="let result of (response ? response.results : [])" class="top-buffer col-md-3">
+        <div class="border border-info rounded block">
+          <a href="{{result.Uri}}" target="_blank">
+            <div class="image"><img src="{{result.raw.tpthumbnailuri}}"/></div>
+            <h3 class="pt__title word-wrap">
+              <span>{{result.title}}</span>
+            </h3>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="btn-toolbar top-buffer">
+      <button type="button" class="btn btn-info margin-buffer" (click)="clickPrevious()" [disabled]="page == 0">
+        Previous
+      </button>
+      <button type="button" class="btn btn-info margin-buffer" (click)="clickNext()"
+              [disabled]="(page + 1) * nbResult >= total">Next
+      </button>
+    </div>
+  </div>
+
+
+</div>
+
+
+<!--
+Copyright 2017-2018 Google Inc. All Rights Reserved.
+Use of this source code is governed by an MIT-style license that
+can be found in the LICENSE file at http://angular.io/license
+-->

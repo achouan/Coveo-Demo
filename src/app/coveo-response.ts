@@ -18,12 +18,15 @@ export interface CoveoResponse {
   categoryFacets?: (null)[] | null;
   results?: (ResultsEntity)[] | null;
 }
+
 export interface TermsToHighlight {
   bière?: (string)[] | null;
   rousse?: (string)[] | null;
 }
+
 export interface PhrasesToHighlight {
 }
+
 export interface ResultsEntity {
   title: string;
   uri: string;
@@ -60,18 +63,22 @@ export interface ResultsEntity {
   Excerpt: string;
   FirstSentences?: null;
 }
+
 export interface TitleHighlightsEntityOrExcerptHighlightsEntityOrPrintableUriHighlightsEntity {
   length: number;
   offset: number;
 }
+
 export interface TitleHighlightsEntityOrExcerptHighlightsEntityOrPrintableUriHighlightsEntity1 {
   length: number;
   offset: number;
 }
+
 export interface TitleHighlightsEntityOrExcerptHighlightsEntityOrPrintableUriHighlightsEntity2 {
   length: number;
   offset: number;
 }
+
 export interface Raw {
   systitle: string;
   systopparent: string;
