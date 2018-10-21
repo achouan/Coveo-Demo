@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {FormsModule} from '@angular/forms';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 import {NgxSpinnerModule} from 'ngx-spinner';
 
 import {AppComponent} from './app.component';
@@ -17,7 +17,6 @@ import {SearchComponent} from './search/search.component';
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClient,
     HttpClientModule,
     NgxSpinnerModule
   ],

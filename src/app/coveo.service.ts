@@ -7,7 +7,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {MessageService} from './message.service';
 import {CoveoResponse} from "./coveo-response";
 import {environment} from "../environments/environment";
-import {CoveoRequest} from "./coveo-request";
+import {CoveoRequest, GroupBy} from "./coveo-request";
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -25,11 +25,18 @@ export class CoveoService {
 
 
   /* GET results whose name contains search term */
-  searchResults(term: string, page: number, nbResult: number): Observable<CoveoResponse> {
+  searchResults(term: string, page: number, nbResult: number, filters: string = null): Observable<CoveoResponse> {
     var req = new CoveoRequest();
     req.q = term;
     req.numberOfResults = nbResult;
     req.firstResult = page * req.numberOfResults;
+    let gb = new GroupBy();
+    gb.field = "@tpenspecial";
+    gb.allowedValues = [];
+    gb.allowedValues.push(String(true));
+    req.groupBy = [];
+    req.groupBy.push(gb);
+    req.aq = filters;
     return this.http.post<CoveoResponse>(`${this.coveoUrl}`, req).pipe(
       catchError(this.handleError<CoveoResponse>('searchResults', null))
     );

@@ -111,6 +111,8 @@ export interface Raw {
   tpprixnum: number;
   sysdocumenttype: string;
   tpprixnormal: string;
+  tpprixrabais: string;
+  tpprixinitial: string;
   syssource: string;
   syssize: number;
   sysdate: number;

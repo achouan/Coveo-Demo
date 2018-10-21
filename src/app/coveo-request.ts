@@ -64,7 +64,7 @@ export interface ComputedField {
   operation: string;
 }
 
-export interface GroupBy {
+export class GroupBy {
   field: string;
   allowedValues: string[];
   allowedValuesPatternType: string;

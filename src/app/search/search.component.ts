@@ -10,6 +10,7 @@ import {CoveoResponse, ResultsEntity} from '../coveo-response';
 import {CoveoService} from '../coveo.service';
 import {MessageService} from '../message.service';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-search',
@@ -21,10 +22,13 @@ export class SearchComponent implements OnInit {
   private searchTerms = new Subject<string>();
 
   private innerTerm: string;
+  private innerNbResultPerPage: number;
+  private innerIsSpecial: boolean;
   term: string;
-  page = 0;
-  total = 0;
-  nbResult = 100;
+  page: number = 0;
+  total: number = 0;
+  nbResultPerPage: number = environment.resultsPerPage;
+  isSpecial: boolean = false;
 
 
   constructor(private coveoService: CoveoService, private messageService: MessageService, private spinner: NgxSpinnerService) {
@@ -64,12 +68,18 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    if (this.innerTerm !== this.term) {
+    if (this.innerTerm !== this.term || this.innerNbResultPerPage !== this.nbResultPerPage || this.innerIsSpecial !== this.isSpecial) {
       this.page = 0;
       this.innerTerm = this.term;
+      this.innerNbResultPerPage = this.nbResultPerPage;
+      this.innerIsSpecial = this.isSpecial;
+    }
+    let filter = "";
+    if(this.isSpecial){
+      filter += "(@tpenspecial==true)";
     }
     this.spinner.show();
-    this.coveoService.searchResults(this.term, this.page, this.nbResult)
+    this.coveoService.searchResults(this.term, this.page, this.nbResultPerPage, filter)
       .subscribe(response => this.getCoveoResponse(response));
   }
 

@@ -3,51 +3,81 @@
   </ngx-spinner>
   <div class="container-fluid ">
 
-    <div class="row top-buffer">
+    <div class="row justify-content-xl-center">
       <div class="input-group col-xl-3">
-        <input type="text" #searchBox class="form-control" (keydown)="onKeyDown($event)" [(ngModel)]="term"
-               placeholder="Type your search here..." aria-label="Type your search here..."
-               aria-describedby="basic-addon2">
-        <div class="input-group-append">
-          <button class="btn btn-outline-secondary" type="button" (click)="clickSearch()">Search</button>
+        <div class="input-group mb-3">
+          <input type="text" #searchBox class="form-control" (keydown)="onKeyDown($event)" [(ngModel)]="term"
+                 placeholder="Type your search here..." aria-label="Type your search here..."
+                 aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" (click)="clickSearch()">Search</button>
+          </div>
         </div>
       </div>
     </div>
+    <div class="row justify-content-xl-center">
+      <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" [(ngModel)]="isSpecial" (change)="clickSearch()" id="isSpecial">
+        <label class="form-check-label" for="isSpecial">Special Only</label>
+      </div>
+    </div>
+    <div class="row justify-content-xl-center">
+      <div class="btn-toolbar mb-3">
+        <button type="button" class="btn btn-info" (click)="clickPrevious()" [disabled]="page == 0">
+          Previous
+        </button>
+        <button type="button" class="btn btn-info ml-1" (click)="clickNext()"
+                [disabled]="(page + 1) * nbResultPerPage >= total">Next
+        </button>
+      </div>
+    </div>
+    <div class="row justify-content-md-center">
+      <div class="mb-3">
+        <select [(ngModel)]="nbResultPerPage" (change)="clickSearch()" class="top-buffer">
+          <option *ngFor="let i of [4, 8 ,12, 24, 48, 96]">{{i}}</option>
+        </select>
+        results per page
+      </div>
+    </div>
+    <div class="row justify-content-md-center mb-3">
+      Page: <b>{{page + 1}}</b>
+    </div>
+    <div class="row justify-content-md-center mb-3">
+      <app-messages></app-messages>
+    </div>
+  </div>
 
-    <div class="btn-toolbar top-buffer">
-      <button type="button" class="btn btn-info margin-buffer" (click)="clickPrevious()" [disabled]="page == 0">
-        Previous
-      </button>
-      <button type="button" class="btn btn-info margin-buffer" (click)="clickNext()"
-              [disabled]="(page + 1) * nbResult >= total">Next
-      </button>
-    </div>
-    <div class="row top-buffer col-xl-12">
-      Page: {{page + 1}} ({{nbResult}} results per page)
-    </div>
-    <app-messages></app-messages>
-    <div class="row top-buffer">
-      <div *ngFor="let result of (response ? response.results : [])" class="top-buffer col-md-3">
-        <div class="border border-info rounded block">
+
+  <div class="container-fluid ">
+    <div class="row">
+      <div *ngFor="let result of (response ? response.results : [])" class="col-xl-3 text-center  my-3 minHeight">
+        <div class="border border-info rounded p-3">
           <a href="{{result.Uri}}" target="_blank">
-            <div class="image"><img src="{{result.raw.tpthumbnailuri}}"/></div>
+            <div><img src="{{result.raw.tpthumbnailuri}}"/></div>
             <h3 class="pt__title word-wrap">
-              <span>{{result.title}}</span>
+              <span class="blockquote">{{result.title}}</span>
             </h3>
+            <div>Price: <span class="line-through" *ngIf="!!result.raw.tpprixinitial">{{(result.raw.tpprixinitial) || ""}} </span>
+              <span>{{(result.raw.tpprixnormal || result.raw.tpprixrabais)}}</span>
+            </div>
           </a>
         </div>
       </div>
     </div>
-    <div class="btn-toolbar top-buffer">
-      <button type="button" class="btn btn-info margin-buffer" (click)="clickPrevious()" [disabled]="page == 0">
-        Previous
-      </button>
-      <button type="button" class="btn btn-info margin-buffer" (click)="clickNext()"
-              [disabled]="(page + 1) * nbResult >= total">Next
-      </button>
+    <div class="container-fluid ">
+      <div class="row justify-content-xl-center">
+        <div class="btn-toolbar mb-3">
+          <button type="button" class="btn btn-info" (click)="clickPrevious()" [disabled]="page == 0">
+            Previous
+          </button>
+          <button type="button" class="btn btn-info ml-1" (click)="clickNext()"
+                  [disabled]="(page + 1) * nbResultPerPage >= total">Next
+          </button>
+        </div>
+      </div>
     </div>
-  </div>
 
+  </div>
 
 </div>
 

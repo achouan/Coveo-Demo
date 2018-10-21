@@ -1,9 +1,7 @@
-<div class="row top-buffer">
-  <div *ngIf="messageService.messages.length" class="col-xl-12">
+<div *ngIf="messageService.messages.length">
 
-    <div *ngFor='let message of messageService.messages'> {{message}}</div>
+  <div *ngFor='let message of messageService.messages'> {{message}}</div>
 
-  </div>
 </div>
 
 
