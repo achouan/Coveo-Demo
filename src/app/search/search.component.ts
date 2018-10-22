@@ -44,7 +44,6 @@ export class SearchComponent implements OnInit {
 
   onKeyDown(event: KeyboardEvent): void {
     if (event.key === "Enter") {
-      console.log(event);
       this.search();
     }
   }
